@@ -43,6 +43,35 @@
 .red{
     background: #a01208;
 }
+
+
+.health0plus,
+.health20plus,
+.health40plus,
+.health60plus,
+.health80plus {
+    padding-left: 60px;
+    background-repeat: no-repeat;
+    background-position: 7px 15px;
+}
+
+.health0plus {
+background-image: url(../img/Discovery/weather-storm.svg);
+}
+.health20plus {
+   background-image: url(../img/Discovery/weather-showers.svg);
+}
+.health40plus {
+   background-image: url(../img/Discovery/weather-overcast.svg);
+}
+.health60plus {
+   background-image: url(../img/Discovery/weather-few-clouds.svg);
+}
+.health80plus {
+   background-image: url(../img/Discovery/weather-clear.svg);
+}
+
+
 .time{
 	font-size:1.5em;
 	background: none;

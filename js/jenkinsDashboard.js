@@ -25,7 +25,27 @@ var jenkinsDashboard = {
             jobs_to_be_excluded = config.jobs_to_be_excluded;
         $.each(jobs, function () {
             if ((jobs_to_be_filtered.length === 0 || $.inArray(this.name, jobs_to_be_filtered) !== -1) && ($.inArray(this.name, jobs_to_be_excluded) === -1)) {
-                fragment += ("<article class=" + this.color + "><head>" + this.name + "</head></article>");
+	            // calculate health report average
+	            healthReportSum = 0;
+	            for(var i = 0; i < this.healthReport.length; i++) {
+		            healthReportSum += parseInt(this.healthReport[i].score);
+	            }
+	            this.health = healthReportSum/this.healthReport.length;
+
+	            // find health level for health value
+	            if (this.health > 80) {
+		            this.health = '80plus';
+	            } else if (this.health >= 60) {
+		            this.health = '60plus';
+	            } else if (this.health > 40) {
+		            this.health = '40plus';
+	            } else if (this.health > 20) {
+		            this.health = '20plus';
+	            } else {
+		            this.health = '0plus';
+	            }
+
+                fragment += ('<article class="' + this.color + ' health' + this.health + '"><head>' + this.name + '</head></article>');
             }
         });
         dashboardLastUpdatedTime = new Date();
@@ -40,12 +60,12 @@ var jenkinsDashboard = {
 
 $(document).ready(function () {
 
-    var ci_url = config.ci_url + "/api/json",
+    var ci_url = config.ci_url + "/api/json?tree=jobs[name,color,healthReport[score]]",
         counter = 0,
         auto_refresh = setInterval(function () {
             counter++;
             $.jsonp({
-                url: ci_url + "?format=json&jsonp=?",
+                url: ci_url + "&format=json&jsonp=?",
                 dataType: "jsonp",
                 // callbackParameter: "jsonp",
                 timeout: 10000,
