@@ -1,7 +1,7 @@
    body {
      padding: 10px;
      margin: 20px;
-     font: bold 3.1em Helvetica, Arial, sans-serif;
+     font: bold 1.2em Helvetica, Arial, sans-serif;
      background-color: #FFF;
    }
 
@@ -13,7 +13,7 @@
        color: #FFF;
 				background-color: gray;
        float: left;
-				padding: 40px;
+				padding: 20px;
        margin: 20px;
        -moz-box-shadow: 5px 5px 5px #333333;
        -webkit-box-shadow: 5px 5px 11px #333333;
@@ -23,11 +23,11 @@
        border-radius: 15px;
 				font-size: 2em;
    }
-			
+
 	.disabled, .aborted{
-		
+
 	}
-		
+
 .blue {
     background:#749a02;
     -webkit-animation: greenPulse 4s infinite;
@@ -73,7 +73,7 @@ background-image: url(../img/Discovery/weather-storm.svg);
 
 
 .time{
-	font-size:1.5em;
+	font-size:1em;
 	background: none;
 	color: black;
 	box-shadow: none;
