@@ -20,6 +20,7 @@ var jenkinsDashboard = {
         });
     },
     composeHtmlFragement: function (jobs) {
+        jobs = this.getJobsOrderedByLastBuild(jobs);
         var fragment = "<section>",
             jobs_to_be_filtered = config.jobs_to_be_filtered,
             jobs_to_be_excluded = config.jobs_to_be_excluded;
