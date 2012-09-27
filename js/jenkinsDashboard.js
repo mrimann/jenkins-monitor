@@ -75,10 +75,17 @@ var jenkinsDashboard = {
         $('#highestRated section').html('<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>');
     },
 
+    outputLowestRatedJob: function (jobs) {
+        orderedJobs = this.getJobsOrderedByHealthRating(jobs);
+        job = orderedJobs[orderedJobs.length-1];
+        $('#lowestRated section').html('<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>');
+    },
+
     updateBuildStatus : function (data) {
         jenkinsDashboard.composeHtmlFragement(data.jobs);
         jenkinsDashboard.outputLatestBuildTime(data.jobs);
         jenkinsDashboard.outputBestRatedJob(data.jobs);
+        jenkinsDashboard.outputLowestRatedJob(data.jobs);
         jenkinsDashboard.addTimestampToBuild($(".disabled, .aborted"));
     },
 
