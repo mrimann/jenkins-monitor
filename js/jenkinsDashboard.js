@@ -12,7 +12,7 @@ var jenkinsDashboard = {
                 id = x + "-" + y,
                 html = '<div class="job_disabled_or_aborted" id="' + id + '">' + worker + '</div>',
                 new_element;
-            $("#content").append(html);
+            $("#left").append(html);
             new_element = $("#" + id);
             new_element.css("top", parseInt(y - new_element.height() / 2)).css("left", parseInt(x - new_element.width() / 2));
             new_element.addClass('rotate');
@@ -47,20 +47,55 @@ var jenkinsDashboard = {
 
                 fragment += ('<article class="' + this.color + ' health' + this.health + '"><head>' + this.name + '</head></article>');
             }
-        });
+        }
+    ),
+
+	    // output all the projects to the list
+	    fragment += '</section>';
+	    $('#left').html(fragment);
+
+	    // add last update timestamp to the output
         dashboardLastUpdatedTime = new Date();
-        fragment += "<article class='time'>" + dashboardLastUpdatedTime.toString('dd, MMMM ,yyyy')  + "</article></section>";
-        $("#content").html(fragment);
+        timestampFragment = "<article class='time'>" + dashboardLastUpdatedTime.toString('dd, MMMM ,yyyy')  + "</article>";
+        $("#content #time").html(timestampFragment);
     },
+
+    outputLatestBuildTime: function (jobs) {
+        orderedJobs = this.getJobsOrderedByLastBuild(jobs);
+        var lastBuildTimestamp = Math.round(orderedJobs[0].lastBuild.timestamp / 1000);
+        var nowTimestamp = Math.round(new Date().getTime() / 1000) ;
+        var minutesSinceLastBuild = Math.round((nowTimestamp - lastBuildTimestamp) / 60);
+        $('#lastBuildTime span').html(minutesSinceLastBuild + 'min');
+    },
+
     updateBuildStatus : function (data) {
         jenkinsDashboard.composeHtmlFragement(data.jobs);
+        jenkinsDashboard.outputLatestBuildTime(data.jobs);
         jenkinsDashboard.addTimestampToBuild($(".disabled, .aborted"));
+    },
+
+
+    // helper methods
+
+    getJobsOrderedByLastBuild: function(jobs) {
+        jobs.sort(function(a, b) {
+            if (a.lastBuild.timestamp < b.lastBuild.timestamp) {
+                return 1;
+            }
+            if (a.lastBuild.timestamp > b.lastBuild.timestamp) {
+                return -1;
+            }
+            if (a.lastBuild.timestamp == b.lastBuild.timestamp) {
+                return 0;
+            }
+        })
+        return jobs;
     }
 };
 
 $(document).ready(function () {
 
-    var ci_url = config.ci_url + "/api/json?tree=jobs[name,color,healthReport[score]]",
+    var ci_url = config.ci_url + "/api/json?tree=jobs[name,color,healthReport[score],lastBuild[timestamp]]",
         counter = 0,
         auto_refresh = setInterval(function () {
             counter++;
