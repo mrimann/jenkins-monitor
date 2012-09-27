@@ -69,9 +69,16 @@ var jenkinsDashboard = {
         $('#lastBuildTime span').html(minutesSinceLastBuild + 'min');
     },
 
+    outputBestRatedJob: function (jobs) {
+        orderedJobs = this.getJobsOrderedByHealthRating(jobs);
+        job = orderedJobs[0];
+        $('#highestRated section').html('<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>');
+    },
+
     updateBuildStatus : function (data) {
         jenkinsDashboard.composeHtmlFragement(data.jobs);
         jenkinsDashboard.outputLatestBuildTime(data.jobs);
+        jenkinsDashboard.outputBestRatedJob(data.jobs);
         jenkinsDashboard.addTimestampToBuild($(".disabled, .aborted"));
     },
 
@@ -91,7 +98,34 @@ var jenkinsDashboard = {
             }
         })
         return jobs;
+    },
+
+    getJobsOrderedByHealthRating: function(jobs) {
+        for(var i = 0; i < jobs.length; i++) {
+            // calculate health report average
+            healthReportSum = 0;
+            for(var j = 0; j < jobs[i].healthReport.length; j++) {
+                healthReportSum += parseInt(jobs[i].healthReport[j].score);
+            }
+            jobs[i].health = healthReportSum/jobs[i].healthReport.length;
+
+        }
+
+        jobs.sort(function(a, b) {
+            if (a.health < b.health) {
+                return 1;
+            }
+            if (a.health > b.health) {
+                return -1;
+            }
+            if (a.health == b.health) {
+                return 0;
+            }
+        })
+
+        return jobs;
     }
+
 };
 
 $(document).ready(function () {
