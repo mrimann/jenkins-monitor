@@ -7,12 +7,12 @@
 
    #left {
        float: left;
-       width: 50%;
+       width: 65%;
    }
 
    #right {
        float: right;
-       width: 49%;
+       width: 34%;
    }
 
    #lastBuildTime,
