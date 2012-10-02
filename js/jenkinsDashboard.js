@@ -69,23 +69,31 @@ var jenkinsDashboard = {
         $('#lastBuildTime span').html(minutesSinceLastBuild + 'min');
     },
 
-    outputBestRatedJob: function (jobs) {
+    outputBestRatedJobs: function (jobs) {
         orderedJobs = this.getJobsOrderedByHealthRating(jobs);
-        job = orderedJobs[0];
-        $('#highestRated section').html('<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>');
+		var fragment = '';
+		for (i = 0; i < 3; i++) {
+			job = orderedJobs[i];
+			fragment += '<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>';
+		}
+        $('#highestRated section').html(fragment);
     },
 
-    outputLowestRatedJob: function (jobs) {
+    outputLowestRatedJobs: function (jobs) {
         orderedJobs = this.getJobsOrderedByHealthRating(jobs);
-        job = orderedJobs[orderedJobs.length-1];
-        $('#lowestRated section').html('<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>');
+		var fragment = '';
+		for (i = 0; i < 3; i++) {
+			job = orderedJobs[orderedJobs.length-i-1];
+			fragment += '<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>';
+		}
+        $('#lowestRated section').html(fragment);
     },
 
     updateBuildStatus : function (data) {
         jenkinsDashboard.composeHtmlFragement(data.jobs);
         jenkinsDashboard.outputLatestBuildTime(data.jobs);
-        jenkinsDashboard.outputBestRatedJob(data.jobs);
-        jenkinsDashboard.outputLowestRatedJob(data.jobs);
+        jenkinsDashboard.outputBestRatedJobs(data.jobs);
+        jenkinsDashboard.outputLowestRatedJobs(data.jobs);
         jenkinsDashboard.addTimestampToBuild($(".disabled, .aborted"));
     },
 
