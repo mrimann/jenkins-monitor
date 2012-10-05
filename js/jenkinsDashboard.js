@@ -24,33 +24,34 @@ var jenkinsDashboard = {
 		var fragment = "<section>",
 			jobs_to_be_filtered = config.jobs_to_be_filtered,
 			jobs_to_be_excluded = config.jobs_to_be_excluded;
-		$.each(jobs, function () {
-			if ((jobs_to_be_filtered.length === 0 || $.inArray(this.name, jobs_to_be_filtered) !== -1) && ($.inArray(this.name, jobs_to_be_excluded) === -1)) {
+		for (var j = 0; j < config.number_of_jobs_to_list; j++) {
+			job = jobs[j];
+
+			if ((jobs_to_be_filtered.length === 0 || $.inArray(job.name, jobs_to_be_filtered) !== -1) && ($.inArray(this.name, jobs_to_be_excluded) === -1)) {
 				// calculate health report average
 				healthReportSum = 0;
-				if (this.healthReport != undefined) {
-					for(var i = 0; i < this.healthReport.length; i++) {
-						healthReportSum += parseInt(this.healthReport[i].score);
+				if (job.healthReport != undefined) {
+					for(var i = 0; i < job.healthReport.length; i++) {
+						healthReportSum += parseInt(job.healthReport[i].score);
 					}
-					this.health = healthReportSum/this.healthReport.length;
+					job.health = healthReportSum/job.healthReport.length;
 
 					// find health level for health value
-					if (this.health > 80) {
-						this.health = '80plus';
-					} else if (this.health >= 60) {
-						this.health = '60plus';
-					} else if (this.health > 40) {
-						this.health = '40plus';
-					} else if (this.health > 20) {
-						this.health = '20plus';
+					if (job.health > 80) {
+						job.health = '80plus';
+					} else if (job.health >= 60) {
+						job.health = '60plus';
+					} else if (job.health > 40) {
+						job.health = '40plus';
+					} else if (job.health > 20) {
+						job.health = '20plus';
 					} else {
-						this.health = '0plus';
+						job.health = '0plus';
 					}
 				}
-				fragment += ('<article class="' + this.color + ' health' + this.health + '"><head>' + this.name + '</head></article>');
+				fragment += ('<article class="' + job.color + ' health' + job.health + '"><head>' + job.name + '</head></article>');
 			}
 		}
-	),
 
 		// output all the projects to the list
 		fragment += '</section>';
