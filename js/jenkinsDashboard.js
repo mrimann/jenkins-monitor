@@ -28,24 +28,25 @@ var jenkinsDashboard = {
             if ((jobs_to_be_filtered.length === 0 || $.inArray(this.name, jobs_to_be_filtered) !== -1) && ($.inArray(this.name, jobs_to_be_excluded) === -1)) {
 	            // calculate health report average
 	            healthReportSum = 0;
-	            for(var i = 0; i < this.healthReport.length; i++) {
-		            healthReportSum += parseInt(this.healthReport[i].score);
-	            }
-	            this.health = healthReportSum/this.healthReport.length;
+				if (this.healthReport != undefined) {
+					for(var i = 0; i < this.healthReport.length; i++) {
+						healthReportSum += parseInt(this.healthReport[i].score);
+					}
+					this.health = healthReportSum/this.healthReport.length;
 
-	            // find health level for health value
-	            if (this.health > 80) {
-		            this.health = '80plus';
-	            } else if (this.health >= 60) {
-		            this.health = '60plus';
-	            } else if (this.health > 40) {
-		            this.health = '40plus';
-	            } else if (this.health > 20) {
-		            this.health = '20plus';
-	            } else {
-		            this.health = '0plus';
-	            }
-
+					// find health level for health value
+					if (this.health > 80) {
+						this.health = '80plus';
+					} else if (this.health >= 60) {
+						this.health = '60plus';
+					} else if (this.health > 40) {
+						this.health = '40plus';
+					} else if (this.health > 20) {
+						this.health = '20plus';
+					} else {
+						this.health = '0plus';
+					}
+				}
                 fragment += ('<article class="' + this.color + ' health' + this.health + '"><head>' + this.name + '</head></article>');
             }
         }
@@ -101,7 +102,19 @@ var jenkinsDashboard = {
     // helper methods
 
     getJobsOrderedByLastBuild: function(jobs) {
-        jobs.sort(function(a, b) {
+		jobs.sort(function(a, b) {
+			// in case we have not a single build yet (new project), fix that
+			if (a.lastBuild == null) {
+				a.color = 'grey';
+				a.lastBuild = new Array();
+				a.lastBuild.timestamp = Math.round((new Date()).getTime() / 1000);
+			}
+			if (b.lastBuild == null) {
+				b.color = 'grey';
+				b.lastBuild = new Array();
+				b.lastBuild.timestamp = Math.round((new Date()).getTime() / 1000);
+			}
+
             if (a.lastBuild.timestamp < b.lastBuild.timestamp) {
                 return 1;
             }
