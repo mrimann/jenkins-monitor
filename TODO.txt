@@ -2,6 +2,5 @@ Ideas to further improve the screen:
 
 - if a build fails, show it big above all the other stuff instead of just changing it's color to red
 - show proper durations (e.g. 508min -> 8h 28min)
-- make number of last builds to show configurable
 - make number of highest rated projects configurable
 - make number of lowest rated projects configurable
