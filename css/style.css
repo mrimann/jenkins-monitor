@@ -1,111 +1,110 @@
-   body {
-     padding: 10px;
-     margin: 20px;
-     font: bold 1.2em Helvetica, Arial, sans-serif;
-     background-color: #FFF;
-   }
+body {
+	padding: 10px;
+	margin: 20px;
+	font: bold 1.2em Helvetica, Arial, sans-serif;
+	background-color: #FFF;
+}
 
-   #left {
-       float: left;
-       width: 65%;
-   }
+#left {
+	float: left;
+	width: 65%;
+}
 
-   #right {
-       float: right;
-       width: 34%;
-   }
+#right {
+	float: right;
+	width: 34%;
+}
 
-   #lastBuildTime,
-   #highestRated {
-       border-bottom: 1px solid #aaa;
-	   padding-bottom: 1em;
-	   margin-bottom: 1em;
-   }
+#lastBuildTime,
+#highestRated {
+	border-bottom: 1px solid #aaa;
+	padding-bottom: 1em;
+	margin-bottom: 1em;
+}
 
-   #highestRated article,
-   #lowestRated article {
-	   float: none;
-	   margin: 0 0 1em 0;
-	   padding: .7em;
-	   font-size: 0.9em;
-   }
+#highestRated article,
+#lowestRated article {
+	float: none;
+	margin: 0 0 1em 0;
+	padding: .7em;
+	font-size: 0.9em;
+}
 
-   #lastBuildTime {
-       font-size: 1.5em;
-   }
+#lastBuildTime {
+	font-size: 1.5em;
+}
 
-   #lastBuildTime span {
-       font-size: 2em;
-   }
+#lastBuildTime span {
+	font-size: 2em;
+}
 
-   section, header, footer, aside, nav, article, figure {
-     display: block;
-   }
+section, header, footer, aside, nav, article, figure {
+	display: block;
+}
 
-   article {
-       color: #FFF;
-				background-color: gray;
-       float: left;
-				padding: 20px;
-       margin: 20px;
-       -moz-box-shadow: 5px 5px 5px #333333;
-       -webkit-box-shadow: 5px 5px 11px #333333;
-       -o-box-shadow: 5px 5px 11px #333333;
-       -ms-box-shadow: 5px 5px 11px #333333;
-       box-shadow: 5px 5px 11px #333333;
-       border-radius: 15px;
-				font-size: 2em;
-   }
+article {
+	color: #FFF;
+	background-color: gray;
+	float: left;
+	padding: 20px;
+	margin: 20px;
+	-moz-box-shadow: 5px 5px 5px #333333;
+	-webkit-box-shadow: 5px 5px 11px #333333;
+	-o-box-shadow: 5px 5px 11px #333333;
+	-ms-box-shadow: 5px 5px 11px #333333;
+	box-shadow: 5px 5px 11px #333333;
+	border-radius: 15px;
+	font-size: 2em;
+}
 
-	.disabled, .aborted{
+.disabled, .aborted{
 
-	}
+}
 
 .blue {
-    background:#749a02;
-    -webkit-animation: greenPulse 4s infinite;
+	background:#749a02;
+	-webkit-animation: greenPulse 4s infinite;
 }
 
 .blue_anime, .red_anime, .yellow_anime, .aborted_anime {
-    background: #3861b6;
+	background: #3861b6;
 }
 .yellow {
 	color: black;
 	background: yellow;
 }
 .red{
-    background: #a01208;
+	background: #a01208;
 }
 
 .grey {
 	background: #999;
 }
 
-
 .health0plus,
 .health20plus,
 .health40plus,
 .health60plus,
 .health80plus {
-    padding-left: 60px;
-    background-repeat: no-repeat;
-    background-position: 7px 15px;
+	padding-left: 60px;
+	background-repeat: no-repeat;
+	background-position: 7px 15px;
 }
 
 .health0plus {
 background-image: url(../img/Discovery/weather-storm.svg);
 }
 .health20plus {
-   background-image: url(../img/Discovery/weather-showers.svg);
+	background-image: url(../img/Discovery/weather-showers.svg);
 }
 .health40plus {
-   background-image: url(../img/Discovery/weather-overcast.svg);
+	background-image: url(../img/Discovery/weather-overcast.svg);
 }
 .health60plus {
-   background-image: url(../img/Discovery/weather-few-clouds.svg);
+	background-image: url(../img/Discovery/weather-few-clouds.svg);
 }
 .health80plus {
-   background-image: url(../img/Discovery/weather-clear.svg);
+	background-image: url(../img/Discovery/weather-clear.svg);
 }
 
 
@@ -130,15 +129,15 @@ background-image: url(../img/Discovery/weather-storm.svg);
 	opacity:.8;
 }
 @-webkit-keyframes greenPulse {
-	from { background-color: #749a02; -webkit-box-shadow: 0 0 9px #333;   -webkit-box-shadow: 5px 5px 11px #333333;}
+	from { background-color: #749a02; -webkit-box-shadow: 0 0 9px #333;	-webkit-box-shadow: 5px 5px 11px #333333;}
 	50% { background-color: #91bd09; -webkit-box-shadow: 0 0 18px #91bd09;  -webkit-box-shadow: 15px 15px 32px #333333; }
-	to { background-color: #749a02; -webkit-box-shadow: 0 0 9px #333;   -webkit-box-shadow: 5px 5px 11px #333333;}
+	to { background-color: #749a02; -webkit-box-shadow: 0 0 9px #333;	-webkit-box-shadow: 5px 5px 11px #333333;}
 }
 #sound{
-  margin: auto;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
