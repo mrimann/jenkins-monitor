@@ -68,7 +68,17 @@ var jenkinsDashboard = {
 		var lastBuildTimestamp = Math.round(orderedJobs[0].lastBuild.timestamp / 1000);
 		var nowTimestamp = Math.round(new Date().getTime() / 1000) ;
 		var minutesSinceLastBuild = Math.round((nowTimestamp - lastBuildTimestamp) / 60);
-		$('#lastBuildTime span').html(minutesSinceLastBuild + 'min');
+		
+		// make it look nice (mins if <1h and hours/mins if more than one hour ago)
+		var timeSinceLastBuild;
+		if (minutesSinceLastBuild < 60) {
+			timeSinceLastBuild = minutesSinceLastBuild + 'min';
+		} else {
+			var hours = Math.floor(minutesSinceLastBuild / 60);          
+			var minutes = minutesSinceLastBuild % 60;
+			timeSinceLastBuild = hours + 'h ' + minutes + 'min';
+		}
+		$('#lastBuildTime span').html(timeSinceLastBuild);
 	},
 
 	outputBestRatedJobs: function (jobs) {
