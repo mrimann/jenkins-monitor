@@ -46,6 +46,7 @@ article {
 	color: #FFF;
 	background-color: gray;
 	float: left;
+	clear: both;
 	padding: 20px;
 	margin: 20px;
 	-moz-box-shadow: 5px 5px 5px #333333;
