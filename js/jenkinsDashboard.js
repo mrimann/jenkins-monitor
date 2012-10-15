@@ -27,7 +27,7 @@ var jenkinsDashboard = {
 		for (var j = 0; j < config.number_of_jobs_to_list; j++) {
 			job = jobs[j];
 
-			if ((jobs_to_be_filtered.length === 0 || $.inArray(job.name, jobs_to_be_filtered) !== -1) && ($.inArray(this.name, jobs_to_be_excluded) === -1)) {
+			if ((jobs_to_be_filtered.length === 0 || $.inArray(job.name, jobs_to_be_filtered) !== -1) && ($.inArray(job.name, jobs_to_be_excluded) === -1)) {
 				// calculate health report average
 				healthReportSum = 0;
 				if (job.healthReport != undefined) {
