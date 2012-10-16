@@ -2,5 +2,7 @@ var config = {
 	ci_url: 'http://ci.jruby.org/view/Ruboto',
 	jobs_to_be_filtered: [],
 	jobs_to_be_excluded: [],
-	number_of_jobs_to_list: 7
+	number_of_jobs_to_list: 7,
+	number_of_best_rated_jobs: 4,
+	number_of_lowest_rated_jobs: 4
 }

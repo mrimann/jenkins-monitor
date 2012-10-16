@@ -1,8 +1,6 @@
 Ideas to further improve the screen:
 
 - if a build fails, show it big above all the other stuff instead of just changing it's color to red
-- make number of highest rated projects configurable
-- make number of lowest rated projects configurable
 - during a currently running build, dont show '0min ago"
 - if the latest build is <1min ago, show "now" instead of "1min ago"
 - hide jobs that had no build during a configurable amount of days (e.g. hide all jobs not built for the latest 30days)

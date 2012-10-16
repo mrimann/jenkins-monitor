@@ -92,7 +92,7 @@ var jenkinsDashboard = {
 	outputBestRatedJobs: function (jobs) {
 		orderedJobs = this.getJobsOrderedByHealthRating(jobs);
 		var fragment = '';
-		for (i = 0; i < 3; i++) {
+		for (i = 0; i < config.number_of_best_rated_jobs; i++) {
 			job = orderedJobs[i];
 			fragment += '<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>';
 		}
@@ -102,7 +102,7 @@ var jenkinsDashboard = {
 	outputLowestRatedJobs: function (jobs) {
 		orderedJobs = this.getJobsOrderedByHealthRating(jobs);
 		var fragment = '';
-		for (i = 0; i < 3; i++) {
+		for (i = 0; i < config.number_of_lowest_rated_jobs; i++) {
 			job = orderedJobs[orderedJobs.length-i-1];
 			fragment += '<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>';
 		}
