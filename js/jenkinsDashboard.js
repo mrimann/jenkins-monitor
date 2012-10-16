@@ -19,15 +19,24 @@ var jenkinsDashboard = {
 			$(this).addClass('workon');
 		});
 	},
+    filterJobs: function(jobs) {
+        var jobs_to_be_filtered = config.jobs_to_be_filtered,
+        jobs_to_be_excluded = config.jobs_to_be_excluded;
+
+        var filteredJobs = new Array();
+        for (var x = 0; x < jobs.length; x++) {
+            job = jobs[x];
+            if ((jobs_to_be_filtered.length === 0 || $.inArray(job.name, jobs_to_be_filtered) !== -1) && ($.inArray(job.name, jobs_to_be_excluded) === -1)) {
+                filteredJobs.push(job);
+            }
+        }
+
+        return filteredJobs;
+    },
 	composeHtmlFragement: function (jobs) {
-		jobs = this.getJobsOrderedByLastBuild(jobs);
-		var fragment = "<section>",
-			jobs_to_be_filtered = config.jobs_to_be_filtered,
-			jobs_to_be_excluded = config.jobs_to_be_excluded;
+		var fragment = "<section>";
 		for (var j = 0; j < config.number_of_jobs_to_list; j++) {
 			job = jobs[j];
-
-			if ((jobs_to_be_filtered.length === 0 || $.inArray(job.name, jobs_to_be_filtered) !== -1) && ($.inArray(job.name, jobs_to_be_excluded) === -1)) {
 				// calculate health report average
 				healthReportSum = 0;
 				if (job.healthReport != undefined) {
@@ -51,7 +60,6 @@ var jenkinsDashboard = {
 				}
 				fragment += ('<article class="' + job.color + ' health' + job.health + '"><head>' + job.name + '</head></article>');
 			}
-		}
 
 		// output all the projects to the list
 		fragment += '</section>';
@@ -68,13 +76,13 @@ var jenkinsDashboard = {
 		var lastBuildTimestamp = Math.round(orderedJobs[0].lastBuild.timestamp / 1000);
 		var nowTimestamp = Math.round(new Date().getTime() / 1000) ;
 		var minutesSinceLastBuild = Math.round((nowTimestamp - lastBuildTimestamp) / 60);
-		
+
 		// make it look nice (mins if <1h and hours/mins if more than one hour ago)
 		var timeSinceLastBuild;
 		if (minutesSinceLastBuild < 60) {
 			timeSinceLastBuild = minutesSinceLastBuild + 'min';
 		} else {
-			var hours = Math.floor(minutesSinceLastBuild / 60);          
+			var hours = Math.floor(minutesSinceLastBuild / 60);
 			var minutes = minutesSinceLastBuild % 60;
 			timeSinceLastBuild = hours + 'h ' + minutes + 'min';
 		}
@@ -102,10 +110,10 @@ var jenkinsDashboard = {
 	},
 
 	updateBuildStatus : function (data) {
-		jenkinsDashboard.composeHtmlFragement(data.jobs);
-		jenkinsDashboard.outputLatestBuildTime(data.jobs);
-		jenkinsDashboard.outputBestRatedJobs(data.jobs);
-		jenkinsDashboard.outputLowestRatedJobs(data.jobs);
+		jenkinsDashboard.composeHtmlFragement(jenkinsDashboard.filterJobs(data.jobs));
+		jenkinsDashboard.outputLatestBuildTime(jenkinsDashboard.filterJobs(data.jobs));
+		jenkinsDashboard.outputBestRatedJobs(jenkinsDashboard.filterJobs(data.jobs));
+		jenkinsDashboard.outputLowestRatedJobs(jenkinsDashboard.filterJobs(data.jobs));
 		jenkinsDashboard.addTimestampToBuild($(".disabled, .aborted"));
 	},
 
