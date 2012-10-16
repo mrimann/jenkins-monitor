@@ -35,6 +35,8 @@ var jenkinsDashboard = {
     },
 	composeHtmlFragement: function (jobs) {
 		var fragment = "<section>";
+        jobs = this.getJobsOrderedByLastBuild(jobs);
+
 		for (var j = 0; j < config.number_of_jobs_to_list; j++) {
 			job = jobs[j];
 				// calculate health report average
