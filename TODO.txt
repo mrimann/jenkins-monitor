@@ -1,4 +1,3 @@
 Ideas to further improve the screen:
 
 - if a build fails, show it big above all the other stuff instead of just changing it's color to red
-- hide jobs that had no build during a configurable amount of days (e.g. hide all jobs not built for the latest 30days)
