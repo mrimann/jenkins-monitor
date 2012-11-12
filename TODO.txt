@@ -1,3 +1,4 @@
 Ideas to further improve the screen:
 
 - if a build fails, show it big above all the other stuff instead of just changing it's color to red
+- add a nice screenshot to the README to be shown on GitHub :-)
