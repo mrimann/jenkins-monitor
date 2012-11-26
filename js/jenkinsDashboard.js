@@ -85,10 +85,14 @@ var jenkinsDashboard = {
             timeSinceLastBuild += '<span>now</span>';
         } else if (minutesSinceLastBuild < 60) {
 			timeSinceLastBuild += '<span>' + minutesSinceLastBuild + 'min</span> ago';
-		} else {
+		} else if (minutesSinceLastBuild < 1440) {
 			var hours = Math.floor(minutesSinceLastBuild / 60);
 			var minutes = minutesSinceLastBuild % 60;
 			timeSinceLastBuild += '<span>' + hours + 'h ' + minutes + 'min</span> ago';
+		} else {
+			var days = Math.floor(minutesSinceLastBuild / 1440);
+			var hours = Math.floor((minutesSinceLastBuild - (days * 60 * 24)) / 60);
+			timeSinceLastBuild += '<span>' + days + ' days ' + hours +'h</span> ago';
 		}
 		$('#lastBuildTime').html(timeSinceLastBuild);
 	},
