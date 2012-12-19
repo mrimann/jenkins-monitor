@@ -60,7 +60,12 @@ var jenkinsDashboard = {
 						job.health = '0plus';
 					}
 				}
-				fragment += ('<article class="' + job.color + ' health' + job.health + '"><head>' + job.name + '</head></article>');
+
+				var lastBuildTimestamp = Math.round(job.lastBuild.timestamp / 1000);
+				var nowTimestamp = Math.round(new Date().getTime() / 1000) ;
+				var minutesSinceLastBuild = Math.round((nowTimestamp - lastBuildTimestamp) / 60);
+
+				fragment += ('<article class="' + job.color + ' health' + job.health + '"><head>' + job.name + '</head><span class="last">' + this.formatMinutesToString(minutesSinceLastBuild) + '</span></article>');
 			}
 
 		// output all the projects to the list
@@ -72,6 +77,25 @@ var jenkinsDashboard = {
 		timestampFragment = "<article class='time'>" + dashboardLastUpdatedTime.toString('dd, MMMM ,yyyy')  + "</article>";
 		$("#content #time").html(timestampFragment);
 	},
+	
+	formatMinutesToString: function (minutes) {
+		var timeSinceLastBuild = '';
+		if (minutes < 1) {
+			timeSinceLastBuild += '<span>now</span>';
+		} else if (minutes <= 60) {
+			timeSinceLastBuild += '<span>' + minutes + 'min</span> ago';
+		} else if (minutes < 1440) {
+			var hours = Math.floor(minutes / 60);
+			var minutes = minutes % 60;
+			timeSinceLastBuild += '<span>' + hours + 'h ' + minutes + 'min</span> ago';
+		} else {
+			var days = Math.floor(minutes / 1440);
+			var hours = Math.floor((minutes - (days * 60 * 24)) / 60);
+			timeSinceLastBuild += '<span>' + days + ' days ' + hours +'h</span> ago';
+		}
+
+		return timeSinceLastBuild;
+	},
 
 	outputLatestBuildTime: function (jobs) {
 		orderedJobs = this.getJobsOrderedByLastBuild(jobs);
@@ -79,21 +103,9 @@ var jenkinsDashboard = {
 		var nowTimestamp = Math.round(new Date().getTime() / 1000) ;
 		var minutesSinceLastBuild = Math.round((nowTimestamp - lastBuildTimestamp) / 60);
 
-		// make it look nice (mins if <1h and hours/mins if more than one hour ago)
-        var timeSinceLastBuild = '<h3>latest Build</h3>';
-        if (minutesSinceLastBuild < 1) {
-            timeSinceLastBuild += '<span>now</span>';
-        } else if (minutesSinceLastBuild < 60) {
-			timeSinceLastBuild += '<span>' + minutesSinceLastBuild + 'min</span> ago';
-		} else if (minutesSinceLastBuild < 1440) {
-			var hours = Math.floor(minutesSinceLastBuild / 60);
-			var minutes = minutesSinceLastBuild % 60;
-			timeSinceLastBuild += '<span>' + hours + 'h ' + minutes + 'min</span> ago';
-		} else {
-			var days = Math.floor(minutesSinceLastBuild / 1440);
-			var hours = Math.floor((minutesSinceLastBuild - (days * 60 * 24)) / 60);
-			timeSinceLastBuild += '<span>' + days + ' days ' + hours +'h</span> ago';
-		}
+		// make it look nice (mins if <1h and hours/mins if more than one hour ago)	
+		var timeSinceLastBuild = '<h3>latest Build</h3>' + this.formatMinutesToString(minutesSinceLastBuild);
+
 		$('#lastBuildTime').html(timeSinceLastBuild);
 	},
 

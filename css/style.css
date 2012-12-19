@@ -56,6 +56,17 @@ article {
 	box-shadow: 5px 5px 11px #333333;
 	border-radius: 15px;
 	font-size: 2em;
+	position: relative
+}
+
+article span.last {
+	text-align: left;
+	width: 190px;
+	position: absolute;
+	color: black;
+	font-size: 65%;
+	top: 32px;
+	right: -205px;
 }
 
 .disabled, .aborted{
