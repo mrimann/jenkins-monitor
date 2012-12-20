@@ -7,8 +7,10 @@ By using jquery jsonp support and jenkins built-in jsonp reponse support, implem
 Why
 -------
 
-It's very important to radiate build status on jenkins(passively). So that everybody in the team can just raise your head
-a little bit and take a look at the builds on screen(it could be in big TV),whether it is red/blue/green. Also it borrows very similar metaphor from Test Driven Development rhythm. Red color box means that build is failed, someonebody in the team may need to take a look at it;Green means "yep, success";Blue means that build currently is building; Grey means that build is aborted or disabled.
+It's very important to radiate build status on jenkins (passively). So that everybody in the team can just raise your head
+a little bit and take a look at the builds on screen(it could be in big TV),whether it is red/blue/green. Also it borrows very similar metaphor from Test Driven Development rhythm. Red color box means that build is failed, someonebody in the team may need to take a look at it; Green means "yep, success"; Blue means that build currently is building; Grey means that build is aborted or disabled.
+
+The initial screen that (https://github.com/tuo "tuo") has created looked like this:
 
 ![Prototype](http://farm7.static.flickr.com/6037/6328931162_042f2c1d09_z.jpg "Optional title")
 
