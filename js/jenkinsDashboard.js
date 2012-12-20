@@ -164,6 +164,12 @@ var jenkinsDashboard = {
 		var fragment = '';
 		for (i = 0; i < config.number_of_best_rated_jobs; i++) {
 			job = orderedJobs[i];
+
+			// hide jobs that failed last build
+			if (job.color == 'red' || job.color == 'aborted') {
+				continue;
+			}
+
 			fragment += '<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>';
 		}
 		$('#highestRated section').html(fragment);
@@ -174,6 +180,12 @@ var jenkinsDashboard = {
 		var fragment = '';
 		for (i = 0; i < config.number_of_lowest_rated_jobs; i++) {
 			job = orderedJobs[orderedJobs.length-i-1];
+
+			// hide jobs that failed last build
+			if (job.color == 'red' || job.color == 'aborted') {
+				continue;
+			}
+
 			fragment += '<article class="' + job.color + ' health' + this.health + '"><head>' + job.name + '</head></article>';
 		}
 		$('#lowestRated section').html(fragment);
