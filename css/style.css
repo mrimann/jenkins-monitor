@@ -10,7 +10,7 @@ body {
 }
 
 #failedBuilds {
-	font-size: 180%;
+	font-size: 200%;
 	padding: 60px 30px;
 	width: 100%;
 	background: transparent url(../img/hazard-stripes-seamless-texture.png) 0 0;
@@ -20,6 +20,11 @@ body {
 #failedBuilds article {
 	float: none;
 	display: inline-block;
+	box-shadow: 8px 8px 8px #888;
+}
+
+#failedBuilds article span.last {
+	display: none;
 }
 
 #left {
@@ -80,7 +85,7 @@ article span.last {
 	text-align: left;
 	width: 190px;
 	position: absolute;
-	color: black;
+	color: #aaa;
 	font-size: 65%;
 	top: 32px;
 	right: -205px;

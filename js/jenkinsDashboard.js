@@ -66,7 +66,7 @@ var jenkinsDashboard = {
 				var nowTimestamp = Math.round(new Date().getTime() / 1000) ;
 				var minutesSinceLastBuild = Math.round((nowTimestamp - lastBuildTimestamp) / 60);
 
-				var jobEntry =  ('<article class="' + job.color + ' health' + job.health + '"><head>' + job.name + '</head><span class="last">' + this.formatMinutesToString(minutesSinceLastBuild) + '</span></article>');
+				var jobEntry =  ('<article class="' + job.color + ' health' + job.health + '"><head>' + job.name + '</head><span class="last">' + this.formatMinutesToShortString(minutesSinceLastBuild) + '</span></article>');
 
 				if (job.color == 'red') {
 					failedBuilds += jobEntry;
@@ -113,8 +113,35 @@ var jenkinsDashboard = {
 			timeSinceLastBuild += '<span>' + hours + 'h ' + minutes + 'min</span> ago';
 		} else {
 			var days = Math.floor(minutes / 1440);
+			if (days > 1) {
+				var dayText = 'days';
+			} else {
+				var dayText = 'day';
+			}
 			var hours = Math.floor((minutes - (days * 60 * 24)) / 60);
-			timeSinceLastBuild += '<span>' + days + ' days ' + hours +'h</span> ago';
+			timeSinceLastBuild += '<span>' + days + ' ' + dayText + ' ' + hours +'h</span> ago';
+		}
+
+		return timeSinceLastBuild;
+	},
+
+	formatMinutesToShortString: function (minutes) {
+		var timeSinceLastBuild = '';
+		if (minutes < 1) {
+			timeSinceLastBuild += '<span>now</span>';
+		} else if (minutes <= 60) {
+			timeSinceLastBuild += '<span>' + minutes + '\'</span>';
+		} else if (minutes <= 1440) {
+			var hours = Math.floor(minutes / 60);
+			timeSinceLastBuild += '<span>' + hours + 'h</span>';
+		} else {
+			var days = Math.floor(minutes / 1440);
+			if (days > 1) {
+				var dayText = 'days';
+			} else {
+				var dayText = 'day';
+			}
+			timeSinceLastBuild += '<span>' + days + ' ' + dayText + '</span>';
 		}
 
 		return timeSinceLastBuild;
