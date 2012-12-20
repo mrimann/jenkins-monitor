@@ -21,6 +21,10 @@ body {
 	float: none;
 	display: inline-block;
 	box-shadow: 8px 8px 8px #888;
+	background-image: url(../img/Discovery/weather-storm.svg);
+	padding-left: 110px;
+	background-size: 100px;
+	background-position: 7px 7px;
 }
 
 #failedBuilds article span.last {
@@ -126,7 +130,7 @@ article span.last {
 }
 
 .health0plus {
-background-image: url(../img/Discovery/weather-storm.svg);
+	background-image: url(../img/Discovery/weather-storm.svg);
 }
 .health20plus {
 	background-image: url(../img/Discovery/weather-showers.svg);

@@ -87,7 +87,7 @@ var jenkinsDashboard = {
 		$('#failedBuilds article').each(function() {
 			// do fading 3 times
 			for(i=0;i<20;i++) {
-				$(this).fadeTo('slow', 0.4).fadeTo('slow', 1.0);
+				$(this).fadeTo('slow', 0.7).fadeTo('slow', 1.0);
 			}
 		});
 
