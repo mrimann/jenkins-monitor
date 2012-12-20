@@ -35,6 +35,7 @@ var jenkinsDashboard = {
     },
 	composeHtmlFragement: function (jobs) {
 		var fragment = "<section>";
+		var failedBuilds = '';
         jobs = this.getJobsOrderedByLastBuild(jobs);
 
 		for (var j = 0; j < config.number_of_jobs_to_list; j++) {
@@ -65,10 +66,32 @@ var jenkinsDashboard = {
 				var nowTimestamp = Math.round(new Date().getTime() / 1000) ;
 				var minutesSinceLastBuild = Math.round((nowTimestamp - lastBuildTimestamp) / 60);
 
-				fragment += ('<article class="' + job.color + ' health' + job.health + '"><head>' + job.name + '</head><span class="last">' + this.formatMinutesToString(minutesSinceLastBuild) + '</span></article>');
+				var jobEntry =  ('<article class="' + job.color + ' health' + job.health + '"><head>' + job.name + '</head><span class="last">' + this.formatMinutesToString(minutesSinceLastBuild) + '</span></article>');
+
+				if (job.color == 'red') {
+					failedBuilds += jobEntry;
+				} else {
+					fragment +=	jobEntry;
+				}
 			}
 
-		// output all the projects to the list
+		// output the failed builds to the DIV on top or re-hide that container if all's fine
+		if (failedBuilds != '') {
+			$('#failedBuilds').html(failedBuilds);
+			$('#failedBuilds').show();
+		} else {
+			$('#failedBuilds').hide().html('');
+		}
+
+		// make the failed builds stand out with some blinky action
+		$('#failedBuilds article').each(function() {
+			// do fading 3 times
+			for(i=0;i<20;i++) {
+				$(this).fadeTo('slow', 0.4).fadeTo('slow', 1.0);
+			}
+		});
+
+		// output all the successfully built projects to the list
 		fragment += '</section>';
 		$('#left').html(fragment);
 
@@ -77,7 +100,7 @@ var jenkinsDashboard = {
 		timestampFragment = "<article class='time'>" + dashboardLastUpdatedTime.toString('dd, MMMM ,yyyy')  + "</article>";
 		$("#content #time").html(timestampFragment);
 	},
-	
+
 	formatMinutesToString: function (minutes) {
 		var timeSinceLastBuild = '';
 		if (minutes < 1) {
@@ -103,7 +126,7 @@ var jenkinsDashboard = {
 		var nowTimestamp = Math.round(new Date().getTime() / 1000) ;
 		var minutesSinceLastBuild = Math.round((nowTimestamp - lastBuildTimestamp) / 60);
 
-		// make it look nice (mins if <1h and hours/mins if more than one hour ago)	
+		// make it look nice (mins if <1h and hours/mins if more than one hour ago)
 		var timeSinceLastBuild = '<h3>latest Build</h3>' + this.formatMinutesToString(minutesSinceLastBuild);
 
 		$('#lastBuildTime').html(timeSinceLastBuild);

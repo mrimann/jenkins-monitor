@@ -1,8 +1,25 @@
 body {
-	padding: 10px;
-	margin: 20px;
+	margin: 0;
 	font: bold 1.2em Helvetica, Arial, sans-serif;
 	background-color: #FFF;
+}
+
+#content {
+	padding: 10px;
+	margin: 20px;
+}
+
+#failedBuilds {
+	font-size: 180%;
+	padding: 60px 30px;
+	width: 100%;
+	background: transparent url(../img/hazard-stripes-seamless-texture.png) 0 0;
+	display: none;
+}
+
+#failedBuilds article {
+	float: none;
+	display: inline-block;
 }
 
 #left {
