@@ -119,7 +119,12 @@ var jenkinsDashboard = {
 				var dayText = 'day';
 			}
 			var hours = Math.floor((minutes - (days * 60 * 24)) / 60);
-			timeSinceLastBuild += '<span>' + days + ' ' + dayText + ' ' + hours +'h</span> ago';
+			if (hours > 0) {
+				var hourText = ' ' + hours + 'h';
+			} else {
+				var hourText = '';
+			}
+			timeSinceLastBuild += '<span>' + days + ' ' + dayText + hourText +'</span> ago';
 		}
 
 		return timeSinceLastBuild;
