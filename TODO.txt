@@ -1,3 +1,6 @@
 Ideas to further improve the screen:
 
+- if there are jobs that belong together, visualize this on the screen
+	e.g. ProjectName (builds the package) is run first and if it successes, it's being deployed to a staging environment, the job is name ProjectName-Staging
+- the duration since last build (top right) is strange during a longer job-run
 - add a nice screenshot to the README to be shown on GitHub :-)
